@@ -1,6 +1,7 @@
 composer.phar
 /vendor/
 composer.lock
-node_modules/*
+node_modules
 .env
 *.sqlite
+package-lock.json
