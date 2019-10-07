@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Errors extends Model
 {
+    protected $guarded = [
+        'id', 'slug', 'created_at'
+    ];
     protected $hidden = [
         'project_id'
     ];
