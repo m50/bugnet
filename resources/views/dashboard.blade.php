@@ -3,7 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col">
+            <nav aria-label="breadcrumbs">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
