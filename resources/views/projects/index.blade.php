@@ -61,7 +61,7 @@
                             <a style="font-size: 1.05em" href="{{ route('projects.edit', [$project]) }}"><i class="fa fa-edit"></i></a>
                             &nbsp;&nbsp;&nbsp;
                             <a style="font-size: 1.05em" href="{{ route('projects.destroy', [$project]) }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault(); document.getElementById('delete-{{ $project->slug }}').submit();">
                                     <i class="fas fa-trash"></i>
                             </a>
                             <form id="delete-{{ $project->slug }}" method="POST" action="{{ route('projects.destroy', [$project]) }}" style="display: none;">

@@ -51,9 +51,9 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Tags: </label>
-                            <input value="{{ old('tags') ?? $project->tagsToString() }}" class="form-control @error('title') is-invalid @enderror" name="tags" type="text" placeholder="Project Tags" id="tags" aria-describedby="nameHelp">
-                            <small id="nameHelp" class="form-text text-muted">Comma separate the tags for the project.</small>
+                            <label for="tags">Tags: </label>
+                            <input value="{{ old('tags') ?? $project->tagsToString() }}" class="form-control @error('title') is-invalid @enderror" name="tags" type="text" placeholder="Project Tags" id="tags" aria-describedby="tagsHelp">
+                            <small id="tagsHelp" class="form-text text-muted">Comma separate the tags for the project.</small>
                             <br>
                             @error('tags')
                                 <span class="alert alert-danger">{{ $message }}</span> 

@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Models\Mail\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 Use Illuminate\Support\Str;
 
@@ -43,7 +42,7 @@ class Project extends Model
 
     public function errors()
     {
-        return $this->hasMany(Errors::class);
+        return $this->hasMany(Error::class);
     }
 
     public function setTagsAttribute($tags)
