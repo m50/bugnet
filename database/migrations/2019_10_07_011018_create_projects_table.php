@@ -20,7 +20,8 @@ class CreateProjectsTable extends Migration
             $table->string('description');
             $table->json('tags');
             $table->unsignedBigInteger('owner_id');
-            $table->string('api_key');
+            $table->string('api_token', 80)->after('password')
+                ->unique()->nullable()->default(null);
             $table->string('url')->nullable();
             $table->timestamps();
             

@@ -32,7 +32,7 @@ class Project extends Model
             $project->slug = Str::slug($project->name);
         });
         static::creating(function ($project) {
-            $project->api_key = md5($project->name . Carbon::now() . Str::random(32));
+            $project->api_key = Str::random(60);
         });
     }
 
