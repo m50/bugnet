@@ -9,3 +9,4 @@ fonts/vendor
 public/css
 public/js
 public/fonts
+.phpunit.result.cache
