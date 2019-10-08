@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->json('tags');
             $table->unsignedBigInteger('owner_id');
             $table->string('api_key');
+            $table->string('url')->nullable();
             $table->timestamps();
             
             $table->foreign('owner_id')->references('id')->on('users');
