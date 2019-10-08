@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Errors extends Model
+class Error extends Model
 {
     protected $guarded = [
         'id', 'slug', 'created_at'
@@ -16,12 +16,17 @@ class Errors extends Model
         'trace' => 'array'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public static function boot()
     {
         parent::boot();
 
         static::saving(function ($error) {
-            $error->slug = Str::slug("$error->name $error->id");
+            $error->slug = Str::slug($error->name);
         });
     }
 
