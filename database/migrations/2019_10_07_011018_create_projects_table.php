@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->json('tags');
             $table->unsignedBigInteger('owner_id');
             $table->string('api_token', 80)->after('password')
