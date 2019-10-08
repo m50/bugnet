@@ -15,6 +15,7 @@ class Error extends Model
     protected $casts = [
         'trace' => 'array'
     ];
+    protected $touches = [ 'project' ];
 
     public function getRouteKeyName()
     {

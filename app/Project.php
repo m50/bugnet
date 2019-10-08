@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\Models\Mail\User;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 Use Illuminate\Support\Str;
 
 class Project extends Model
 {
     protected $fillable = [
-        'name', 'description', 'tags'
+        'name', 'description', 'tags', 'url'
     ];
     protected $casts = [
         'tags' => 'array'
@@ -31,7 +31,7 @@ class Project extends Model
             $project->slug = Str::slug($project->name);
         });
         static::creating(function ($project) {
-            $project->api_key = Str::random(60);
+            $project->api_token = Str::random(60);
         });
     }
 
