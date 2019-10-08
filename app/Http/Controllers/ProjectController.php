@@ -24,6 +24,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Project::class);
         $query = auth()->user()->projects();
         if (request()->has('filter')) {
             $filter = '%'.request()->filter.'%';
@@ -51,6 +52,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Project::class);
         $validated = $request->validate([
             'name' => 'required|string|max:50|min:3|unique:projects',
             'description' => 'nullable|string|max:255',
@@ -69,6 +71,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $this->authorize('view', $project);
         return view('projects.show', ['project' => $project]);
     }
 
@@ -80,6 +83,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
         return view('projects.edit', ['project' => $project]);
     }
 
@@ -92,6 +96,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
         $validated = $request->validate([
             'description' => 'nullable|string|max:255',
             'url' => 'nullable|active_url',
@@ -109,6 +114,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $this->authorize('delete', $project);
     }
 }
