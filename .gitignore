@@ -5,3 +5,7 @@ node_modules
 .env
 *.sqlite
 package-lock.json
+fonts/vendor
+public/css
+public/js
+public/fonts
