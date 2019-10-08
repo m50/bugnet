@@ -36,4 +36,8 @@ return [
         'redirect' => env('MICROSOFT_AUTH_URL'),
     ],
 
+    'fa' => [
+        'key' => env('FA_KEY')
+    ]
+
 ];
