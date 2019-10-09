@@ -36,6 +36,7 @@
             </div>
             <table class="table">
                 <thead>
+                    <th scope="col">Owner</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Tags</th>
@@ -45,6 +46,9 @@
                 <tbody>
                 @forelse ($projects as $project)
                     <tr>
+                        <td><a href="{{ route('users.show', $project->owner) }}">
+                            <img src="{{ $project->owner->gravatar}}" alt="{{ $project->owner->name }}'s avatar'" class="rounded-circle" />
+                        </a></td>
                         <td><a href="{{ route('projects.show', [$project]) }}">{{ $project->name }}<a></td>
                         <td>{{ Str::limit($project->description, 48) }}</td>
                         <td>
