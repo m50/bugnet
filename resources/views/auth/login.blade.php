@@ -11,9 +11,6 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        @if(!empty(config('services.github.client_id')))
-                            <a href="/auth/github">Github Login</a>
-                        @endif
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -59,7 +56,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
+                                @if(!empty(config('services.github.client_id')))
+                                    <a class="btn btn-secondary" href="/auth/github"><i class="fab fa-github"></i> Github Login</a>
+                                @endif
+                                <br />
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
