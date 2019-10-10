@@ -16,6 +16,9 @@ Auth::routes(['verify' => true]);
 Route::redirect('/', '/dashboard');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+Route::get('/auth/{provider}', 'Auth\ExternalAuthController@redirectToProvider');
+Route::get('/auth/{provider}/callback', 'Auth\ExternalAuthController@handleProviderCallback');
+
 Route::resource('projects', 'ProjectController');
 Route::resource('errors', 'ErrorController')->only(['index', 'show', 'store']);
 Route::resource('users', 'UserController');

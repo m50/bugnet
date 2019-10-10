@@ -31,6 +31,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'gravatar'
     ];
 
+    protected $with = [ 'auth_config' ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->auth_config()->create(['config' => [
+                'avatar' => $user->gravatar
+            ]]);
+        });
+    }
+
     /**
      * projects
      *
@@ -49,7 +62,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function shared_projects()
     {
         return $this->belongsToMany(Project::class)
-            ->withTimestamps();;
+            ->withTimestamps();
+    }
+
+    /**
+     * auth_config
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function auth_config()
+    {
+        return $this->hasOne(AuthConfig::class);
     }
 
     /**

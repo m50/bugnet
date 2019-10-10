@@ -11,6 +11,9 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        @if(!empty(config('services.github.client_id')))
+                            <a href="/auth/github">Github Login</a>
+                        @endif
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
