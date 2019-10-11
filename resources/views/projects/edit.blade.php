@@ -20,7 +20,7 @@
                 <div class="card-header">Edit Project</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('projects.store') }}">
+                    <form method="POST" action="{{ route('projects.update') }}">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
