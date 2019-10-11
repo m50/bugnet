@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\AuthConfig;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
@@ -12,7 +11,7 @@ use Socialite;
 class ExternalAuthController extends Controller
 {
     /**
-     * Redirect the user to the GitHub authentication page.
+     * Redirect the user to the Provider authentication page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +21,7 @@ class ExternalAuthController extends Controller
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from the Provider.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,6 +33,12 @@ class ExternalAuthController extends Controller
         return redirect('/dashboard');
     }
 
+    /**
+     * Create a new system user from the provider's user.
+     *
+     * @param mixed $pUser The provider's user to convert.
+     * @return \App\User
+     */
     protected function firstOrNewUser($pUser) : User
     {
         $user = User::firstOrNew([
