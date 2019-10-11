@@ -20,8 +20,11 @@ Route::get('/auth/{provider}', 'Auth\ExternalAuthController@redirectToProvider')
 Route::get('/auth/{provider}/callback', 'Auth\ExternalAuthController@handleProviderCallback');
 
 Route::resource('projects', 'ProjectController');
-Route::resource('errors', 'ErrorController')->only(['index', 'show', 'store']);
 Route::resource('users', 'UserController');
+
+Route::get('/errors', 'ErrorController@index')->name('errors.index');
+Route::get('/errors/{error}', 'ErrorController@show')->name('errors.show');
+
 
 Route::get('/shared-projects', 'SharedProjectsController@index')->name('shared-projects.index');
 Route::get('/shared-projects/{project}/{user}', 'SharedProjectsController@show')->name('shared-projects.show');
