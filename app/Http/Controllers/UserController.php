@@ -24,28 +24,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $this->authorize('manage', App\User::class);
+        return $this->view('users.index');
     }
 
     /**
@@ -56,7 +36,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $this->authorize('manage', App\User::class);
+        return $this->view('users.show', ['user' => $user]);
     }
 
     /**
@@ -67,7 +48,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.config', compact($user));
+        $this->authorize('update', $user);
+        return view('users.config', ['user' => $user]);
     }
 
     /**
@@ -79,7 +61,22 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+        $validated = $request->validate([
+            'password' => [
+                'string', 'confirmed', 'min:8', 'max:128',
+                'contain_number', 'contain_upper_case', 'contain_lower_case',
+                'contain_symbol'
+            ],
+            'is_admin' => [ 'can:manage,App\User', 'boolean' ]
+        ]);
+        $user->update($validated);
+        if (isset($validated['password'])) {
+            session()->flash('message', __('users.updated.password', ['user' => $user->name]));
+        } elseif (isset($validated['is_admin'])) {
+            session()->flash('message', __('users.updated.is_admin', ['user' => $user->name]));
+        }
+        return back();
     }
 
     /**

@@ -41,6 +41,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Project::class);
         return view('projects.create');
     }
 
@@ -103,7 +104,7 @@ class ProjectController extends Controller
             'tags' => 'nullable|string|regex:/^(?:\w+,\s*)*\w+$/'
         ]);
         $project->update($validated);
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.show', $project);
     }
 
     /**
@@ -115,5 +116,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $this->authorize('delete', $project);
+        $project->errors->each->delete();
+        $project->delete();
+        return redirect()->route('projects.index');
     }
 }
