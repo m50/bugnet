@@ -11,7 +11,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'is_admin'
     ];
 
     protected $hidden = [
@@ -37,15 +37,23 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         parent::boot();
 
-        static::created(function ($user) {
-            $user->auth_config()->create(['config' => [
-                'avatar' => $user->gravatar
-            ]]);
-        });
+        static::created(
+            function ($user) {
+                $user->auth_config()->create(
+                    ['config' => [
+                    'avatar' => $user->gravatar
+                    ]]
+                );
+                if ($user->id === 1) {
+                    $user->is_admin = true;
+                    $user->save();
+                }
+            }
+        );
     }
 
     /**
-     * projects
+     * Relation to owned projects.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -55,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * shared_projects
+     * Relation to shared projects
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -66,7 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * auth_config
+     * Relation to auth config.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -78,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * setPasswordAttribute
      *
-     * @param string $password
+     * @param  string $password
      * @return void
      */
     public function setPasswordAttribute(string $password)
@@ -87,10 +95,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * getGravatarAttribute
-     *
-     * @param int|null $size = 30
-     * @param string|null $default = 'mp'
+     * Get the gravatar of the user.
+     * Note: The gravatar is only if you don't want to use what is in the
+     * auth config.
+     * @param  int|null    $size    = 30
+     * @param  string|null $default = 'mp'
      * @return void
      */
     public function getGravatarAttribute(?int $size = null, ?string $default = null) : string

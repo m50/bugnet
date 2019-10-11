@@ -21,7 +21,7 @@ class AuthConfig extends Model
     protected $fillable = [ 'config', 'user_id' ];
 
     /**
-     * user
+     * Relation to the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
