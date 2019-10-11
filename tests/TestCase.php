@@ -10,14 +10,17 @@ abstract class TestCase extends BaseTestCase
 
     protected function login($user = null)
     {
-        $this->actingAs($user ?? factory(\App\User::class)->create());
+        $user = $user ?? factory(\App\User::class)->create();
+        $this->actingAs($user, 'web');
+        return $user;
     }
-    protected function loginAdmin($user = null)
+    protected function loginAsAdmin($user = null)
     {
         $user = $user ?? factory(\App\User::class)->create();
         $user->is_admin = true;
         $user->save();
-        $this->actingAs($user);
+        $this->actingAs($user, 'web');
+        return $user;
     }
     protected function arrayAsString($array)
     {

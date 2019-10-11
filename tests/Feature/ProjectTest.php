@@ -35,7 +35,7 @@ class ProjectTest extends TestCase
         unset($attributes['name']);
         $attributes['url'] = 'https://facebook.com/';
         $path = '/projects/' . $project->slug;
-        $this->patch($path, ['url' => $attributes['url']])->assertRedirect('/projects');
+        $this->patch($path, ['url' => $attributes['url']])->assertRedirect("/projects/{$project->slug}");
         $attributes['tags'] = $this->arrayAsString($attributes['tags']);
         $this->assertDatabaseHas('projects', $attributes);
         $this->get($path)->assertSee($attributes['url']);
@@ -66,10 +66,11 @@ class ProjectTest extends TestCase
     /** @test */
     public function admin_can_view_project()
     {
+        $this->withoutExceptionHandling();
         $this->login();
         $project = auth()->user()->projects()->create(factory(Project::class)->raw());
         $user = factory(\App\User::class)->create();
-        $this->loginAdmin($user);
+        $this->loginAsAdmin($user);
         $path = '/projects/' . $project->slug;
         $this->get($path)->assertStatus(200);
     }
