@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Login\Providers;
+namespace App\Services\Auth;
 
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\ProviderInterface;
